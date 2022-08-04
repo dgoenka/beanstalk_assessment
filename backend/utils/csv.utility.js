@@ -16,7 +16,10 @@ module.exports.parseCSV = (csv, options) =>
     // Catch any error
     parser.on('error', reject);
     // Test that the parsed records matched the expected records
-    parser.on('end', () => resolve(records));
+    parser.on('end', () => {
+      console.log('in parseCSV, csv is:\n' + JSON.stringify(records, null, 2));
+      resolve(records);
+    });
     // Write data to the stream
     parser.write(csv);
     // Close the readable stream
