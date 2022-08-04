@@ -1,16 +1,14 @@
 'use strict';
 
 const controller = require('./user.controller');
+const koaBody = require('koa-body');
 
 module.exports = Router => {
   const router = new Router({
-    prefix: `/users`,
+    prefix: `/transform`,
   });
 
-  router
-    .get('/:userId', controller.getOne)
-    .get('/', controller.getAll)
-    .post('/', controller.createOne);
+  router.post('/csv', koaBody({ multipart: true }), controller.transformCSV);
 
   return router;
 };
